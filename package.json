@@ -1,0 +1,14 @@
+{
+  "name": "demo_app_playwright_tests",
+  "version": "1.0.0",
+  "description": "Playwright tests for the Insurance Policy Management demo_app",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ci": "playwright test --reporter=list,html",
+    "test:report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.0"
+  }
+}
