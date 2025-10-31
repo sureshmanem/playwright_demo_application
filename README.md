@@ -53,14 +53,26 @@ For a detailed test plan and instructions on how to run the tests and view repor
 -   **[Test Plan](./docs/TEST_PLAN.md):** A comprehensive list of all test scenarios.
 -   **[Running Tests](./docs/TESTS_README.md):** Step-by-step guide to installing dependencies and running the test suite.
 
-## Stopping the Application
+## Prompt
 
-To stop and remove the containers, networks, and volumes, run the following command in the `demo_app` directory:
+You are an expert AI assistant. Use the following prompt to build and test this application from scratch.
 
-```bash
-docker-compose down
-```
-To stop the containers without removing the data volume, you can use:
-```bash
-docker-compose stop
-```
+---
+
+**Prompt:**
+
+Your task is to build, run, and test a dockerized web application.
+
+1.  **Build and Run the Application:**
+    - Execute the command `docker-compose up --build -d` to build the Docker images and run the application services in detached mode.
+    - Verify that the application is running by checking the container logs or accessing `http://localhost:8000`.
+
+2.  **Install Testing Dependencies:**
+    - Run the command `npm install` to install the necessary Node.js packages for testing.
+
+3.  **Execute the Automated Tests:**
+    - Run the command `npm test` to execute the full suite of Playwright tests against the running application.
+    - Capture and report the final test results.
+
+4.  **Shut Down the Application:**
+    - Once testing is complete, execute `docker-compose down` to stop and remove all running containers, networks, and volumes associated with the application.
