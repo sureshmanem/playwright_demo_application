@@ -44,35 +44,128 @@ This project provides a complete, self-contained, dockerized application environ
 
     You should see the Insurance Policy Management System interface.
 
-## Automated Testing
 
-This project includes a full suite of automated end-to-end tests built with Playwright.
+## Testing the Application
 
-For a detailed test plan and instructions on how to run the tests and view reports, please see the documentation in the `docs` directory:
+### 1. Prerequisites
 
--   **[Test Plan](./docs/TEST_PLAN.md):** A comprehensive list of all test scenarios.
--   **[Running Tests](./docs/TESTS_README.md):** Step-by-step guide to installing dependencies and running the test suite.
+- **Docker** and **Docker Compose** (for the app)
+- **Node.js** and **npm** (for Playwright tests)
+- An [OpenAI API key](https://platform.openai.com/account/api-keys) (for GenAI-powered features)
 
-## Prompt
+### 2. Running the Application
 
-You are an expert AI assistant. Use the following prompt to build and test this application from scratch.
+1. **Start the app and database:**
+     ```bash
+     docker-compose up --build
+     ```
+     The app will be available at [http://localhost:8000](http://localhost:8000).
+
+2. **(Optional) Stop the app:**
+     ```bash
+     docker-compose down
+     ```
+
+### 3. Installing Test Dependencies
+
+1. **Install Node.js dependencies:**
+     ```bash
+     npm install
+     ```
+2. **Install Playwright browsers:**
+     ```bash
+     npx playwright install --with-deps
+     ```
+
+### 4. Running the Test Suite
+
+- **Run all tests and generate an HTML report:**
+    ```bash
+    npm run test:ci
+    ```
+- **View the HTML report:**
+    ```bash
+    npm run test:report
+    ```
+    The report will open in your browser and is also saved in the `playwright-report/` directory.
+
+- **See [docs/TEST_PLAN.md](./docs/TEST_PLAN.md)** for a full list of test scenarios.
+- **See [docs/TESTS_README.md](./docs/TESTS_README.md)** for more details on test execution.
 
 ---
 
-**Prompt:**
+## Using the GenAI Self-Healing Solution for Playwright Tests
 
-Your task is to build, run, and test a dockerized web application.
+This project includes an advanced, AI-powered self-healing mechanism for Playwright selectors, leveraging OpenAI's GPT models. If a test fails due to a broken selector, the system can automatically suggest and try a new selector, log the suggestion, and allow you to review and approve it.
 
-1.  **Build and Run the Application:**
-    - Execute the command `docker-compose up --build -d` to build the Docker images and run the application services in detached mode.
-    - Verify that the application is running by checking the container logs or accessing `http://localhost:8000`.
+### How It Works
 
-2.  **Install Testing Dependencies:**
-    - Run the command `npm install` to install the necessary Node.js packages for testing.
+1. **Test Failure Detection:**
+     - When a Playwright test fails due to a selector not found, the self-healing fixture (`tests/fixtures/selfHealing.fixture.ts`) intercepts the error.
 
-3.  **Execute the Automated Tests:**
-    - Run the command `npm test` to execute the full suite of Playwright tests against the running application.
-    - Capture and report the final test results.
+2. **AI Selector Suggestion:**
+     - The failing code, error message, and a DOM snapshot are sent to OpenAI via the `suggestNewSelector` utility.
+     - The AI suggests a new, more robust selector.
 
-4.  **Shut Down the Application:**
-    - Once testing is complete, execute `docker-compose down` to stop and remove all running containers, networks, and volumes associated with the application.
+3. **Automatic Retry:**
+     - The test automatically retries the action using the AI-suggested selector.
+     - The suggestion and context are logged in `selector-suggestions.log.json` for review.
+
+4. **Logging and Review:**
+     - All selector suggestions are logged with context (test file, error, DOM snapshot).
+     - Use the utilities in `utils/selectorSuggestionLog.ts` to review and approve suggestions.
+
+5. **Patching Test Files:**
+     - Once a suggestion is approved, use `patchSelectorInFile` to update the test file with the new selector.
+
+### Example: Self-Healing Test
+
+See `tests/self-healing-selector.spec.ts` for a working example:
+
+```typescript
+test('Self-healing selector: try fallback on failure', async ({ page, recoverSelector }) => {
+    await page.goto('http://localhost:8000');
+    try {
+        await page.click('button#submit'); // Intentionally broken selector
+    } catch (error) {
+        const newSelector = await recoverSelector({
+            page,
+            failingCode: "await page.click('button#submit')",
+            error: String(error),
+            testFile: __filename,
+            selector: 'button#submit'
+        });
+        if (newSelector) {
+            await page.click(newSelector);
+            expect(true).toBe(true);
+        } else {
+            throw new Error('No new selector suggested by AI');
+        }
+    }
+});
+```
+
+### Enabling GenAI Features
+
+- **Set your OpenAI API key** in your environment:
+    ```bash
+    export OPENAI_API_KEY=sk-...
+    ```
+- The AI-powered utilities are in the `utils/` directory:
+    - `generateTestData.ts`: Generate test data using OpenAI.
+    - `generatePlaywrightSteps.ts`: Generate Playwright steps from a prompt.
+    - `suggestNewSelector.ts`: Suggest new selectors on failure.
+    - `patchSelectorInFile.ts`: Patch test files with new selectors.
+    - `selectorSuggestionLog.ts`: Log and review selector suggestions.
+    - `validateSteps.ts`: Validate Playwright steps before execution.
+
+### Workflow Summary
+
+1. Run tests as usual.
+2. If a selector fails, the AI will suggest a new one and retry.
+3. Review suggestions in `selector-suggestions.log.json`.
+4. Approve and patch selectors as needed.
+
+---
+
+For more details, see the `docs/` directory and the `utils/` folder for all GenAI-powered utilities.

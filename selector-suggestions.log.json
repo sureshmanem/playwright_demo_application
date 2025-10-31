@@ -1,0 +1,82 @@
+[
+  {
+    "testFile": "/Users/lallu/Downloads/demo_app/tests/self-healing-selector.spec.ts",
+    "failingSelector": "button#submit",
+    "newSelector": "'button[type=\"submit\"]'",
+    "context": {
+      "error": "TimeoutError: page.click: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('button#submit')\u001b[22m\n"
+    },
+    "timestamp": "2025-10-31T03:23:49.869Z",
+    "approved": true
+  },
+  {
+    "testFile": "/Users/lallu/Downloads/demo_app/tests/self-healing-selector.spec.ts",
+    "failingSelector": "button#submit",
+    "newSelector": "'button[type=\"submit\"]'",
+    "context": {
+      "error": "TimeoutError: page.click: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('button#submit')\u001b[22m\n"
+    },
+    "timestamp": "2025-10-31T03:35:19.971Z",
+    "approved": true
+  },
+  {
+    "testFile": "/Users/lallu/Downloads/demo_app/tests/self-healing-selector.spec.ts",
+    "failingSelector": "button#submit",
+    "newSelector": "'button[type=\"submit\"]'",
+    "context": {
+      "error": "TimeoutError: page.click: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('button#submit')\u001b[22m\n"
+    },
+    "timestamp": "2025-10-31T03:37:42.312Z",
+    "approved": false
+  },
+  {
+    "testFile": "/Users/lallu/Downloads/demo_app/tests/self-healing-selector.spec.ts",
+    "failingSelector": "button#submit",
+    "newSelector": "'button[type=\"submit\"]'",
+    "context": {
+      "error": "TimeoutError: page.click: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('button#submit')\u001b[22m\n"
+    },
+    "timestamp": "2025-10-31T03:41:20.835Z",
+    "approved": false
+  },
+  {
+    "testFile": "/Users/lallu/Downloads/demo_app/tests/self-healing-selector.spec.ts",
+    "failingSelector": "button#submit",
+    "newSelector": "'button[type=\"submit\"]'",
+    "context": {
+      "error": "TimeoutError: page.click: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('button#submit')\u001b[22m\n"
+    },
+    "timestamp": "2025-10-31T03:44:23.108Z",
+    "approved": false
+  },
+  {
+    "testFile": "/Users/lallu/Downloads/demo_app/tests/self-healing-selector.spec.ts",
+    "failingSelector": "button#submit",
+    "newSelector": "'button[type=\"submit\"]'",
+    "context": {
+      "error": "TimeoutError: page.click: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('button#submit')\u001b[22m\n"
+    },
+    "timestamp": "2025-10-31T03:45:58.847Z",
+    "approved": false
+  },
+  {
+    "testFile": "/Users/lallu/Downloads/demo_app/tests/self-healing-selector.spec.ts",
+    "failingSelector": "button#submit",
+    "newSelector": "'button[type=\"submit\"]'",
+    "context": {
+      "error": "TimeoutError: page.click: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('button#submit')\u001b[22m\n"
+    },
+    "timestamp": "2025-10-31T03:47:04.696Z",
+    "approved": false
+  },
+  {
+    "testFile": "/Users/lallu/Downloads/demo_app/tests/self-healing-selector.spec.ts",
+    "failingSelector": "button[data-testid=\"add-quote\"]",
+    "newSelector": "'button[type=\"submit\"]'",
+    "context": {
+      "error": "TimeoutError: page.click: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('button[data-testid=\"add-quote\"]')\u001b[22m\n"
+    },
+    "timestamp": "2025-10-31T03:49:23.814Z",
+    "approved": false
+  }
+]

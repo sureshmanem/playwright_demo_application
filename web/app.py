@@ -84,7 +84,7 @@ HTML_TEMPLATE = """
                     <input type="number" step="0.01" name="premium" id="premium" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                 </div>
                 <div class="md:col-span-2">
-                    <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Add Quote</button>
+                    <button type="submit" data-testid="add-quote" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Add Quote</button>
                 </div>
             </form>
         </div>
